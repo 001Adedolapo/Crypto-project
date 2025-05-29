@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sign up page</title>
+   <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Sign In | CryptoFlex Exchange</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        --primary: #0f62fe;
+        --secondary: #111;
+        --accent: #00ffd5;
+        --bg: #0a0a0a;
+        --text: #fff;
+        --error: #ff4d4f;
+      }
+      * { margin:0; padding:0; box-sizing:border-box; }
+      body {
+        font-family: 'Poppins', sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        min-height:100vh;
+        padding:20px;
+      }
+      .login-container {
+        background: var(--secondary);
+        padding: 30px;
+        border-radius: 10px;
+        width: 100%;
+        max-width: 400px;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+      }
+      .login-container h2 {
+        text-align:center;
+        margin-bottom:20px;
+        color:var(--accent);
+      }
+      .login-container label {
+        display:block;
+        margin-top:15px;
+        font-weight:500;
+      }
+      .login-container input {
+        width:100%;
+        padding:10px;
+        margin-top:5px;
+        border:1px solid #333;
+        border-radius:6px;
+        background:#222;
+        color:#eee;
+        font-size:1rem;
+      }
+      .btn {
+        margin-top:20px;
+        width:100%;
+        padding:12px;
+        background: var(--primary);
+        border:none;
+        border-radius:6px;
+        color:#fff;
+        font-size:1rem;
+        font-weight:600;
+        cursor:pointer;
+        transition: background 0.3s;
+      }
+      .btn:hover {
+        background:#004fc1;
+      }
+      .error-message {
+        color: var(--error);
+        font-size:0.9rem;
+        margin-top:10px;
+        display:none;
+        text-align:center;
+      }
+      .signup-link {
+        margin-top:16px;
+        text-align:center;
+        font-size:0.9rem;
+      }
+      .signup-link a {
+        color: var(--accent);
+        text-decoration: none;
+        font-weight:500;
+      }
+    </style>
+  </head>
+  <body>
+  
+    <div class="login-container">
+      <h2>Sign In to Your Account</h2>
+  
+      <form id="loginForm">
+        <label for="login-email">Email Address</label>
+        <input type="email" id="login-email" required placeholder="Enter your email">
+  
+        <label for="login-password">Password</label>
+        <input type="password" id="login-password" required placeholder="Enter your password">
+  
+        <button type="submit" class="btn">Sign In</button>
+  
+        <div id="login-error" class="error-message">Invalid email or password.</div>
+      </form>
+  
+      <div class="signup-link">
+        Don't have an account? <a href="signup.html">Sign Up here</a>
+      </div>
+    </div>
+  
+    <script>
+      const loginForm = document.getElementById('loginForm');
+      const loginError = document.getElementById('login-error');
+  
+      loginForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        loginError.style.display = 'none';
+  
+        const email = document.getElementById('login-email').value.trim();
+        const password = document.getElementById('login-password').value;
+  
+        const stored = JSON.parse(localStorage.getItem('user') || '{}');
+  
+        if (stored.email === email && stored.password === password) {
+          // Set session flag
+          sessionStorage.setItem('isLoggedIn', 'true');
+          // Redirect to the protected trade page
+          window.location.href = 'buy-sell.html';
+        } else {
+          loginError.style.display = 'block';
+        }
+      });
+
+      
+      
+    </script>
+  
+  </body>
+  </html>
+  
+
+
+</body>
+
+</html>

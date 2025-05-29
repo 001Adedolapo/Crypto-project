@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contact page</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+
+<body>
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sign Up | CryptoFlex Exchange</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0f62fe;
+      --secondary: #111;
+      --accent: #00ffd5;
+      --bg: #0a0a0a;
+      --text: #fff;
+      --error: #ff4d4f;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      min-height:100vh;
+      padding:20px;
+    }
+    #registration-form {
+      background: var(--secondary);
+      padding: 30px;
+      border-radius: 10px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+    }
+    #registration-form label {
+      display:block;
+      margin-top:15px;
+      font-weight:500;
+    }
+    #registration-form input {
+      width:100%;
+      padding:10px;
+      margin-top:5px;
+      border:1px solid #333;
+      border-radius:6px;
+      background:#222;
+      color:#eee;
+      font-size:1rem;
+    }
+    #submit-registration {
+      margin-top:20px;
+      width:100%;
+      padding:12px;
+      background: var(--primary);
+      border:none;
+      border-radius:6px;
+      color:#fff;
+      font-size:1rem;
+      font-weight:600;
+      cursor:pointer;
+      transition: background 0.3s;
+    }
+    #submit-registration:hover {
+      background:#004fc1;
+    }
+    #password-error, #password-match-error {
+      margin-top:8px;
+      font-size:0.9rem;
+      display:none;
+      color: var(--error);
+    }
+    #registration-form p {
+      margin-top:16px;
+      font-size:0.9rem;
+      text-align:center;
+    }
+    #registration-form p a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight:500;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Registration Form -->
+  <form id="registration-form">
+    <h2 style="text-align:center; margin-bottom:20px; color:var(--accent);">Create Account</h2>
+
+    <label for="email2">Email Address</label>
+    <input type="email" id="email2" name="email" required placeholder="Enter your email address" />
+
+    <label for="phone">Phone Number</label>
+    <input type="tel" id="phone" name="phone" required placeholder="Enter your phone number" />
+
+    <label for="password">Password</label>
+    <input type="password" id="password" name="password" required placeholder="Enter your password" />
+
+    <label for="confirm-password">Confirm Password</label>
+    <input type="password" id="confirm-password" name="confirm-password" required placeholder="Confirm your password" />
+
+    <button type="submit" id="submit-registration">Sign Up</button>
+
+    <p id="password-error">Password must be at least 10 characters, contain an uppercase letter, a lowercase letter, a number, and a special character.</p>
+    <p id="password-match-error">Passwords do not match.</p>
+    
+    <p>Already have an account? <a href="signin.html">Sign in here</a></p>
+  </form>
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+  let generatedOTP = "";
+  const termiiApiKey = "TLzrUkxAvTXpzqpgXCfTgqlGZYTvSxlGZhTrDuXVXfpOWClxunslnMwrKwICiH"; // Replace with your real API key
+  const senderID = ""; // Replace with your Termii sender name or leave blank
+
+  function generateOTP() {
+    return Math.floor(100000 + Math.random() * 900000).toString();
+  }
+
+  async function sendOTP(phone, otp) {
+    try {
+      const response = await axios.post("https://api.ng.termii.com/api/sms/send", {
+        api_key: termiiApiKey,
+        to: phone,
+        from: senderID,
+        sms: `Your OTP code is ${otp}. Do not share it with anyone.`,
+        type: "plain",
+        channel: "generic"
+      });
+
+      console.log("📨 SMS Sent Successfully:", response.data);
+      alert(`📲 OTP sent to ${phone}. Check your SMS.`);
+    } catch (error) {
+      console.error("❌ Failed to send SMS:", error);
+      alert("❌ Failed to send OTP. Please try again.");
+    }
+  }
+
+  document.getElementById('registration-form').addEventListener('submit', async function (event) {
+    event.preventDefault();
+
+    const email = document.getElementById('email2').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const password = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('confirm-password').value;
+
+    let isValid = true;
+
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailRegex.test(email)) {
+      alert('🚫 Invalid email address.');
+      isValid = false;
+    }
+
+    const phoneRegex = /^\+?\d{10,15}$/;
+    if (!phoneRegex.test(phone)) {
+      alert('🚫 Invalid phone number.');
+      isValid = false;
+    }
+
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?#&])[A-Za-z\d@$!%*?#&]{10,}$/;
+    if (!passwordRegex.test(password)) {
+      document.getElementById('password-error').style.display = 'block';
+      isValid = false;
+    } else {
+      document.getElementById('password-error').style.display = 'none';
+    }
+
+    if (password !== confirmPassword) {
+      document.getElementById('password-match-error').style.display = 'block';
+      isValid = false;
+    } else {
+      document.getElementById('password-match-error').style.display = 'none';
+    }
+
+    if (isValid) {
+      generatedOTP = generateOTP();
+      await sendOTP(phone, generatedOTP);
+
+      localStorage.setItem("tempUser", JSON.stringify({ email, phone, password }));
+
+      showOTPField();
+    }
+  });
+
+  function showOTPField() {
+    const form = document.getElementById('registration-form');
+
+    const otpSection = document.createElement('div');
+    otpSection.innerHTML = `
+      <label for="otp">Enter OTP</label>
+      <input type="text" id="otp" placeholder="Enter the 6-digit code sent to your phone" required>
+      <button type="button" onclick="verifyOTP()">Verify & Proceed</button>
+      <p id="otp-error" style="color:red; display:none;">❌ Incorrect OTP. Try again.</p>
+    `;
+    form.appendChild(otpSection);
+  }
+
+  function verifyOTP() {
+    const otpEntered = document.getElementById('otp').value.trim();
+    const otpError = document.getElementById('otp-error');
+
+    if (otpEntered === generatedOTP) {
+      const user = JSON.parse(localStorage.getItem("tempUser"));
+      localStorage.setItem("user", JSON.stringify(user));
+      localStorage.removeItem("tempUser");
+      sessionStorage.setItem("isLoggedIn", "true");
+      alert("✅ OTP Verified! Redirecting to Buy/Sell page...");
+      window.location.href = "buy-sell.html";
+    } else {
+      otpError.style.display = "block";
+    }
+  }
+
+  
+</script>
+
+  
+</body>
+</html>

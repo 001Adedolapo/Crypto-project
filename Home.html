@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome to Our Crypto Exchange</title>
+  <link rel="stylesheet" href="Home.css">
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1 class="logo">CocabitX</h1>
+      <nav>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="signup.html">Sign Up / Sign In</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section id="home" class="hero">
+      <div class="container">
+        <h2>Welcome to CocabitX</h2>
+        <p>Your trusted Canadian crypto exchange for BTC and USDC transactions. Buy and sell crypto securely, fast, and easily. Start your crypto journey with confidence today!</p>
+        <a href="signup.html" class="cta-button">Get Started</a>
+      </div>
+    </section>
+
+    <section id="about" class="section">
+      <div class="container">
+        <h2>Why CocabitX?</h2>
+        <p>We’re not just a crypto platform—we’re your partner in financial freedom. With real-time exchange rates, top-notch security, and a simple interface, we make crypto trading accessible for everyone in Canada.</p>
+      </div>
+    </section>
+
+    <section id="features" class="section">
+      <div class="container">
+        <h2>Key Features</h2>
+        <ul class="features-list">
+          <li>🇨🇦 CAD Integration - Designed for Canadian users</li>
+          <li>🔐 Verified Transactions - Email and SMS secured accounts</li>
+          <li>📈 Live Rates - Real-time BTC and USDC prices from CoinGecko</li>
+          <li>💬 24/7 Support - We’re always here for you</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 CocabitX. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Example redirect for Buy/Sell page if user is not logged in
+    document.querySelectorAll('.restricted-link').forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        alert("Please sign in to access this feature.");
+        window.location.href = "signup.html";
+      });
+    });
+  </script>
+</body>
+</html>

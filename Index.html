@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cocabit Clone</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="main.js" defer></script>
+</head>
+<body>
+
+<header class="header">
+  <div class="container nav-container">
+    <div class="logo">Cocabit</div>
+    <nav class="nav" id="nav">
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#trade">Trade</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#sign-in">Sign in</a></li>
+        <li><a href="signup.html">Sign up</a></li>
+      </ul>
+    </nav>
+    <div class="hamburger" id="hamburger">&#9776;</div>
+  </div>
+</header>
+
+<!-- Hero / Home Section -->
+<section class="hero" id="home">
+  <div class="container">
+    <h1>Buy & Sell Cryptos</h1>
+    <p>Exchange your cryptocurrencies quickly and easily with live market rates.</p>
+    
+    <div class="crypto-assets">
+      <div class="crypto-item">
+        <img src="bitcoin.JPG" alt="Bitcoin">
+        <h3>Bitcoin (BTC)</h3>
+        <p>Buy/Sell at current rate: $<span id="btc-rate">Loading...</span></p>
+      </div>
+      <div class="crypto-item">
+        <img src="Usd coin.JPG" alt="USDC">
+        <h3>USD Coin (USDC)</h3>
+        <p>Buy/Sell at current rate: $<span id="usdc-rate">Loading...</span></p>
+      </div>
+    </div>
+
+    <div class="exchange-point">
+      <h3>Your Crypto Exchange Point</h3>
+      <p>Live updates on exchange rates and perform buy/sell operations.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Trade Section -->
+<section class="trade" id="trade">
+  <div class="container">
+    <div class="tab-buttons">
+      <button type="button" class="tab active" data-target="buy-tab">Buy</button>
+      <button type="button" class="tab" data-target="sell-tab">Sell</button>
+    </div>
+
+    <section class="tabs-section">
+      <div class="tab-container">
+        <div class="tab active" id="buy-tab-btn">Buy</div>
+        <div class="tab" id="sell-tab-btn">Sell</div>
+      </div>
+    
+      <!-- Tab Contents -->
+      <div class="tab-contents">
+        <!-- Buy Tab -->
+        <div class="tab-content active" id="buy-tab">
+          <select id="buy-crypto">
+            <option value="bitcoin">BTC</option>
+            <option value="usd-coin">USDC</option>
+          </select>
+          <input type="number" id="buy-amount" placeholder="Enter amount (e.g., 0.5)" />
+          <input type="number" id="buy-price" placeholder="Enter price (e.g., 30000)" />
+          <input type="text" id="buy-total" placeholder="Total" readonly />
+          <button class="trade-btn buy-btn" onclick="handleTrade('buy')">Buy</button>
+        </div>
+    
+        <!-- Sell Tab -->
+        <div class="tab-content" id="sell-tab">
+          <select id="sell-crypto">
+            <option value="bitcoin">BTC</option>
+            <option value="usd-coin">USDC</option>
+          </select>
+          <input type="number" id="sell-amount" placeholder="Enter amount (e.g., 0.5)" />
+          <input type="number" id="sell-price" placeholder="Enter price (e.g., 30000)" />
+          <input type="text" id="sell-total" placeholder="Total" readonly />
+          <button class="trade-btn sell-btn" onclick="handleTrade('sell')">Sell</button>
+        </div>
+      </div>
+    </section>
+</section>
+
+<!-- Form Inputs -->
+<form id="cryptoForm">
+  <label for="name">Name:</label>
+  <input type="text" id="name" name="name" required>
+
+  <label for="email">Email:</label>
+  <input type="email" id="email" name="email" required>
+
+  <label for="cryptoSelect">Select Crypto Wallet:</label>
+  <select id="cryptoSelect" name="cryptoSelect">
+    <option value="">Select Wallet</option>
+    <option value="btc">BTC</option>
+    <option value="usdc">USDC</option>
+  </select>
+
+  <label for="wallet">Wallet Address:</label>
+  <input type="text" id="wallet" name="wallet" required>
+
+  <!-- Invalid Wallet Address Message -->
+  <div id="invalidWalletMessage" style="display: none; color: red;">
+    Invalid wallet address. Please enter a valid BTC or USDC address.
+  </div>
+
+  <!-- Bank Transfer Details Section (hidden by default) -->
+  <div id="bankTransferDetails" class="bank-transfer-info" style="display: none;">
+    <h3>Bank Transfer Information</h3>
+    <p id="bankName"></p>
+    <p id="accountNumber"></p>
+    <p id="accountType"></p>
+    <p id="transferMethod"></p>
+    <p id="swiftCode"></p>
+    <p id="additionalInfo"></p>
+  </div>
+
+  <label for="paymentProof">Upload Proof of Payment:</label>
+  <input type="file" id="paymentProof" name="paymentProof" accept=".pdf,.jpg,.png">
+
+  <button type="submit">Submit</button>
+</form>
+
+<!-- Market Stats -->
+<section class="market-stats">
+  <div class="container stats-grid">
+    <div class="stat-card">
+      <h3>BTC/USDC</h3>
+      <p>$29,432.19</p>
+      <span class="positive">+2.34%</span>
+    </div>
+    <div class="stat-card">
+      <h3>Market Cap</h3>
+      <p>$582.9B</p>
+    </div>
+    <div class="stat-card">
+      <h3>24h Volume</h3>
+      <p>$23.1B</p>
+    </div>
+  </div>
+</section>
+
+<!-- Features -->
+<section class="features" id="features">
+  <div class="container features-grid">
+    <div class="feature-box">
+      <h4>Fast Transactions</h4>
+      <p>Get your crypto in seconds with blazing fast confirmations.</p>
+    </div>
+    <div class="feature-box">
+      <h4>Secure Wallets</h4>
+      <p>Your funds are stored with military-grade encryption.</p>
+    </div>
+    <div class="feature-box">
+      <h4>24/7 Support</h4>
+      <p>Always available to help — no matter the time zone.</p>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="container">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-item">
+      <button class="faq-btn">How do I buy crypto?</button>
+      <div class="faq-content">
+        <p>Use the Buy tab above. Enter amount and price, then click Buy.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-btn">Which cryptocurrencies are supported?</button>
+      <div class="faq-content">
+        <p>We currently support Bitcoin (BTC) and USD Coin (USDC).</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-btn">How secure is Cocabit?</button>
+      <div class="faq-content">
+        <p>We use industry-standard security protocols to ensure your funds are safe.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact">
+  <div class="container">
+    <h2>Contact Us</h2>
+    <p>Email: support@cocabit.com</p>
+    <p>Phone: +234 900 000 0000</p>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <h2>Cocabit</h2>
+      <p>Buy, sell & trade crypto securely with ease.</p>
+    </div>
+    <div class="footer-links">
+      <a href="#home">Home</a>
+      <a href="#trade">Trade</a>
+      <a href="#features">Features</a>
+      <a href="#">Privacy</a>
+    </div>
+    <div class="footer-contact">
+      <p>Email: support@cocabit.com</p>
+      <p>Phone: +234 900 000 0000</p>
+    </div>
+  </div>
+  <p class="footer-bottom">© 2025 Cocabit. All rights reserved.</p>
+</footer>
+
+
+
+</body>
+</html>
